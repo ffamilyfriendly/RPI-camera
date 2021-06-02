@@ -1,0 +1,11 @@
+.entry {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.entry img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
