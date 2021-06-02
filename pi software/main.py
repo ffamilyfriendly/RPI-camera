@@ -6,7 +6,6 @@ import configparser;
 config = configparser.ConfigParser();
 config.read("conf.ini");
 xstarts, xends, ystarts, yends = int(config["sample"]["xstart"]), int(config["sample"]["xend"]), int(config["sample"]["ystart"]), int(config["sample"]["yend"])
-cap = cv2.VideoCapture(0);
 
 # Avg r, g, b for pixels in area
 class avg:
@@ -44,6 +43,7 @@ def doFrame(frame):
     return frame
 
 def run():
+    cap = cv2.VideoCapture(0);
     thresh = int(config["sample"]["threshold"])
     def wThresh(fV,lV):
         return abs(fV - lV) < thresh
@@ -54,8 +54,10 @@ def run():
 
     if(wThresh(lR,avg.R) and wThresh(lG,avg.G) and wThresh(lB,avg.B)): exit()
     cv2.imwrite("./images/{}.png".format(datetime.now().strftime("%d-%m-%Y-%H;%M;%S")),doFrame(frame));
+    cap.release()
 
 def runSample():
+    cap = cv2.VideoCapture(0);
     print("Sampling x{}-{},y{}-{} for {} seconds".format(config["sample"]["xstart"],config["sample"]["xend"],config["sample"]["ystart"],config["sample"]["yend"],config["sample"]["seconds"]))
     
     class timesran:
@@ -66,6 +68,7 @@ def runSample():
         if(timesran.i < int(config["sample"]["seconds"])): threading.Timer(1.0,getValues).start();
         else:
             if(not timesran.cont): exit(1)
+            cap.release()
             print("Done sampling!")
             avg.R = Avg(avg.r)
             avg.G = Avg(avg.g)

@@ -5,8 +5,8 @@ You can also change the allowed threshold in config as well as what area to chec
 Images will be saved to /images
 
 ## Recomended cron jobs
-* `@reboot python3 /<dir here>/main.py` start script at bootup
-* `@reboot python3 /<dir here>/server.py` start image server in bootup (not needed necessarily)
+* `@reboot cd <dir here> && python3 main.py` start camera script
+* `@reboot cd <dir here> && python3 server.py` start image server in bootup (not needed necessarily)
 * `@midnight tar -zcvf "/<dir here>/backups/$(date '+%Y-%m-%d').tar.gz" /<dir here>/images --remove-files` save images as compressed tar every day at 00:00. Will save memory
 
 ## connect to image server
