@@ -4,8 +4,10 @@ In config you can select how many seconds to sample background and the interval 
 You can also change the allowed threshold in config as well as what area to check.
 Images will be saved to /images
 
+## Run script
+You can run camera script as a cron job but I recomend you run it as a systemd service instead as that makes the script run at a time when you are sure camera is initialized and a service can also restart script for you in the case of crashes. **Make sure** to set the working directory in the service to that of the directory the script is in as else the script will get confused when trying to save images and loading config file.
+
 ## Recomended cron jobs
-* `@reboot cd <dir here> && python3 main.py` start camera script
 * `@reboot cd <dir here> && python3 server.py` start image server in bootup (not needed necessarily)
 * `@midnight tar -zcvf "/<dir here>/backups/$(date '+%Y-%m-%d').tar.gz" /<dir here>/images --remove-files` save images as compressed tar every day at 00:00. Will save memory
 
